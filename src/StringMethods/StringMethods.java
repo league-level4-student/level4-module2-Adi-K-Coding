@@ -65,33 +65,71 @@ public class StringMethods {
 		String s1LastName = s1trimmed.split(" ")[1];
 		String s2LastName = s2trimmed.split(" ")[1];
 		String s3LastName = s3trimmed.split(" ")[1];
-		return null;
+		String currentFirst = "";
+		if (s1LastName.compareTo(s2LastName) < 0) {
+			if (s1LastName.compareTo(s3LastName) < 0) {
+				currentFirst = s1trimmed;
+			} else {
+				currentFirst = s3trimmed;
+			}
+		} else {
+			if (s2LastName.compareTo(s3LastName) < 0) {
+				currentFirst = s2trimmed;
+			} else {
+				currentFirst = s3trimmed;
+			}
+		}
+
+		return currentFirst;
 	}
 
 	// Return the sum of all numerical digits in the String
 	public static int numeralSum(String s) {
-		return 0;
+		int sum = 0;
+		int numberToAdd = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if (Character.isDigit(s.charAt(i))) {
+				numberToAdd = Integer.parseInt(s.charAt(i) + "");
+				sum = sum + numberToAdd;
+			}
+		}
+		return sum;
 	}
 
 	// Return the number of times String substring appears in String s
 	public static int substringCount(String s, String substring) {
-		return 0;
+		int number = 0;
+		for (int i = 0; i < s.length() - substring.length() + 1; i++) {
+			if (s.substring(i, i + substring.length()).equals(substring)) {
+				number += 1;
+			}
+		}
+
+		return number;
 	}
 
 	// Call Utitilities.encrypt to encrypt String s
 	public static String encrypt(String s, char key) {
-		return null;
+		return Utilities.encrypt(s.getBytes(), (byte) key);
 	}
 
 	// Call Utilities.decrypt to decrypt the cyphertext
 	public static String decrypt(String s, char key) {
-		return null;
+		return Utilities.decrypt(s, (byte) key);
 	}
 
 	// Return the number of words in String s that end with String substring
 	// You can assume there are no punctuation marks between words
 	public static int wordsEndsWithSubstring(String s, String substring) {
-		return 0;
+		int number = 0;
+		String[] words = s.split(" ");
+		for (int i = 0; i < words.length; i++) {
+			if (words[i].endsWith(substring)) {
+				number += 1;
+			}
+		}
+		return number;
+
 	}
 
 	// Given String s, return the number of characters between the first occurrence
@@ -105,7 +143,20 @@ public class StringMethods {
 	// palindromes are words or phrases are read the same forward as backward.
 	// HINT: ignore/remove all punctuation and spaces in the String
 	public static boolean palindrome(String s) {
-		return true;
+		String palindrome = s.trim();
+		String palindrome1 = s.replace(" ", "").replace("!", "").replace(",", "").replace(".", "").replace("'", "")
+				.replace("-", "").replace(":", "").replace(";", "").replace("?", "");
+		palindrome = palindrome1.toLowerCase();
+		boolean isPalindrome = true;
+		double lengthOfInput = (palindrome.length() / 2) + 0.5;
+
+		for (int i = 0; i < lengthOfInput; i++) {
+			if (palindrome.charAt(i) != palindrome.charAt(palindrome.length() - (i + 1))) {
+				isPalindrome = false;
+			break;
+			}
+		}
+		return isPalindrome;
 	}
 
 }
