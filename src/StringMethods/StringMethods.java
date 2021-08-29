@@ -136,7 +136,16 @@ public class StringMethods {
 	// of String substring and the final occurrence
 	// You can assume that substring will appear at least twice
 	public static int distance(String s, String substring) {
-		return 0;
+		int indexStart = s.indexOf(substring);
+		int indexEnd = 0;
+		for (int i = indexStart; i < s.length(); i++) {
+			int indexTemp = s.indexOf(substring, i);
+			if (indexTemp != -1) {
+				indexEnd = indexTemp;
+			}
+		}
+
+		return (indexEnd - indexStart) - substring.length();
 	}
 
 	// Return true if String s is a palindrome
@@ -153,9 +162,10 @@ public class StringMethods {
 		for (int i = 0; i < lengthOfInput; i++) {
 			if (palindrome.charAt(i) != palindrome.charAt(palindrome.length() - (i + 1))) {
 				isPalindrome = false;
-			break;
+				break;
 			}
 		}
+	
 		return isPalindrome;
 	}
 
